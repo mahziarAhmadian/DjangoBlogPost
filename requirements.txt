@@ -1,14 +1,14 @@
 # general  modules
 django >3.2,<3.3
-#python-decouple
-#Pillow
+python-decouple
+Pillow
 djangorestframework
 psycopg2-binary
 
 # third party modules
 #markdown
 django-filter
-#drf-yasg[validation]
+drf-yasg[validation]
 djangorestframework-simplejwt
 #djoser
 django-cors-headers

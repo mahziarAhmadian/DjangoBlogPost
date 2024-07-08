@@ -3,7 +3,6 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from ..serializers import user_serializers
 
-
 User = get_user_model()
 
 
@@ -29,7 +28,6 @@ class UserLoginGenericAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class PasswordResetUpdateAPIView(generics.UpdateAPIView):
     """
     Endpoint to reset  user  password .
@@ -37,6 +35,7 @@ class PasswordResetUpdateAPIView(generics.UpdateAPIView):
 
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = user_serializers.PasswordResetSerializer
+    http_method_names = ['put']
 
     def get_object(self):
         return self.request.user
@@ -54,5 +53,3 @@ class PasswordResetUpdateAPIView(generics.UpdateAPIView):
                 return Response({'error': 'Incorrect old password'}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
