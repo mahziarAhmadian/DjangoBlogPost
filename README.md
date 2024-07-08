@@ -1,13 +1,13 @@
 # DjangoBlogPost
-Overview
+<h3>Overview</h3>
 This project is a blog application built using Django, a high-level Python web framework. 
 The application supports user authentication, blog post crud apies, and a commenting system.
 
-Features
+<h3>Features</h3>
 User Management
 Authentication: Users can log in to the application.
 Profile Management: Users can view and edit their profiles.
-Blog Posts
+<h3>Blog Posts</h3>
 Create, Read, Update, Delete (CRUD) Operations: Users can create new posts, view existing posts, update their posts, and delete posts they own.
 Commenting System
 Add Comments: Users can comment on posts.
