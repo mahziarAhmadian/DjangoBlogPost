@@ -9,10 +9,10 @@ Authentication: Users can log in to the application.
 Profile Management: Users can view and edit their profiles.
 <h3>Blog Posts</h3>
 Create, Read, Update, Delete (CRUD) Operations: Users can create new posts, view existing posts, update their posts, and delete posts they own.
-Commenting System
+<h3>Commenting System</h3>
 Add Comments: Users can comment on posts.
 Moderate Comments: Post authors can moderate comments on their posts (approve, delete).
-Technology Stack
+<h3>Technology Stack</h3>
 Django: The primary framework used for developing the application.
 Django REST Framework: For building APIs to support potential frontend frameworks or mobile applications.
 PostgreSQL: Default database for development and production.
