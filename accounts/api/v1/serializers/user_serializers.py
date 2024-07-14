@@ -2,6 +2,7 @@ from django.conf import settings
 from rest_framework import serializers
 from accounts.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.postgres.fields import ArrayField
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -71,10 +72,11 @@ class UserLoginSerializer(serializers.ModelSerializer):
         write_only=True,
         style={'input_type': 'password'}
     )
+    permissions = serializers.JSONField(read_only=True)
 
     class Meta(object):
         model = User
-        fields = ['phone_number', 'password', 'access', 'refresh']
+        fields = ['phone_number', 'password', 'access', 'refresh','permissions']
 
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)
@@ -113,6 +115,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
             token = self.get_tokens_for_user(user=user_obj)
             data['access'] = token.get('access')
             data['refresh'] = token.get('refresh')
+            data['permissions'] = user_obj.permissions
         else:
             raise serializers.ValidationError("User not active.")
         return data
@@ -126,3 +129,10 @@ class PasswordResetSerializer(serializers.ModelSerializer):
         model = User
         fields = ['old_password', 'new_password']
 
+
+class AdminSetPermissionsSerializer(serializers.ModelSerializer):
+    permission_name = serializers.CharField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['permission_name']

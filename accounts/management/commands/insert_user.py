@@ -8,7 +8,6 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         super(Command, self).__init__(*args, **kwargs)
-        self.fake = Faker()
 
     def handle(self, *args, **options):
-        User.objects.create_superuser(phone_number='09356165600', password="1234")
+        User.objects.create_superuser(phone_number='09122222222', password="1234")

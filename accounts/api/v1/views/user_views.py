@@ -53,3 +53,23 @@ class PasswordResetUpdateAPIView(generics.UpdateAPIView):
                 return Response({'error': 'Incorrect old password'}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AdminSetPermissionsUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = user_serializers.AdminSetPermissionsSerializer
+    http_method_names = ['put']
+
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = self.get_object()
+            user.permissions.append(serializer.validated_data['permission_name'])
+            user.save()
+            return Response({'message': 'User Permission updated successfully'}, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
