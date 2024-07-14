@@ -40,9 +40,8 @@ class ProfileAdminListAPIView(generics.ListAPIView):
     }
 
     def get(self, request, *args, **kwargs):
-        print(request.query_params)
-        # if not request.user.is_superuser or 'ProfileList' not in request.user.permissions:
-        #     return Response(status=status.HTTP_401_UNAUTHORIZED)
+        if not request.user.is_superuser or 'ProfileList' not in request.user.permissions:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         return self.list(request, *args, **kwargs)
 
 
@@ -50,8 +49,6 @@ class SetProfileUpdateAPIView(generics.UpdateAPIView):
     queryset = Profile.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SetProfileSerializer
-
-    # http_method_names = ['put']
 
     def get_object(self):
         user = self.request.user.id
