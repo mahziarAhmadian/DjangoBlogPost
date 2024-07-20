@@ -15,4 +15,8 @@ urlpatterns = [
     path('password_reset/',
          user_views.PasswordResetUpdateAPIView.as_view(),
          name='password_reset'),
+
+    path('admin/set/permissions',
+         user_views.AdminSetPermissionsUpdateAPIView.as_view(),
+         name='set-admin-permissions'),
 ]

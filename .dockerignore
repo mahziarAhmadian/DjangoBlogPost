@@ -1,4 +1,5 @@
-**/migrations
+# Ignore migration folders
+**/migrations/
 src/media
 Procfile
 .git

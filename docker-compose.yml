@@ -6,8 +6,6 @@ services:
     shm_size: 512mb
     expose:
       - 5432
-    ports:
-      - '5432:5432'
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:
@@ -21,15 +19,15 @@ services:
   backend:
     build: .
     container_name: backend
-    command: python manage.py runserver 0.0.0.0:8000
+    command:  python manage.py runserver 0.0.0.0:8000
     ports:
       - '8000:8000'
     environment:
       - DEBUG=True
       - SECRET_KEY=test
       - ALLOWED_HOSTS=*
-    volumes:
-      - ./:/app
+#    volumes:
+#      - ./:/app
     depends_on:
       - postgres
     networks:
