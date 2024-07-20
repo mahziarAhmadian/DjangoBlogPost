@@ -3,6 +3,7 @@ import random
 from datetime import datetime
 from accounts.models import User
 
+
 class Command(BaseCommand):
     help = "inserting user"
 
