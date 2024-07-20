@@ -6,6 +6,7 @@ from accounts.models.profile import Profile
 from accounts.api.v1.serializers.profile_serialzers import ProfileSerializer, SetProfileSerializer
 from ..paginations import CustomPagination
 from ..permission import CustomPermissions
+from ..filters import ProfileFilters
 
 User = get_user_model()
 
@@ -35,9 +36,7 @@ class ProfileAdminListAPIView(generics.ListAPIView):
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend]
     required_permission = 'ProfileList'
-    filterset_fields = {
-        "first_name": ["in"],
-    }
+    filterset_class = ProfileFilters
 
 
 class SetProfileUpdateAPIView(generics.UpdateAPIView):
