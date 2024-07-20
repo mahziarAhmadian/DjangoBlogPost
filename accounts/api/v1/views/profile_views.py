@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from accounts.models.profile import Profile
 from accounts.api.v1.serializers.profile_serialzers import ProfileSerializer, SetProfileSerializer
 from ..paginations import CustomPagination
+from ..permission import CustomPermissions
 
 User = get_user_model()
 
@@ -29,20 +30,14 @@ class ProfileRetrieveAPIView(generics.RetrieveAPIView):
 
 class ProfileAdminListAPIView(generics.ListAPIView):
     queryset = Profile.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, CustomPermissions]
     serializer_class = ProfileSerializer
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend]
-    # filterset_fields = ['exact','iexact','contains','icontains','in','gt','gte','lt','lte','startswith','istartswith',
-    # 'endswith']
+    required_permission = 'ProfileList'
     filterset_fields = {
         "first_name": ["in"],
     }
-
-    def get(self, request, *args, **kwargs):
-        if not request.user.is_superuser or 'ProfileList' not in request.user.permissions:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-        return self.list(request, *args, **kwargs)
 
 
 class SetProfileUpdateAPIView(generics.UpdateAPIView):
