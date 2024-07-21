@@ -11,7 +11,7 @@ class PostFilters(filters.FilterSet):
     class Meta:
         model = Post
         fields = {
-            'category': ["exact", "in"],
+            'category': ["exact"],
             'author': ["exact"],
             'status': ["exact"]
         }

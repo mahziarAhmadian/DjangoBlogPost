@@ -26,8 +26,8 @@ services:
       - DEBUG=True
       - SECRET_KEY=test
       - ALLOWED_HOSTS=*
-#    volumes:
-#      - ./:/app
+    volumes:
+      - ./:/app
     depends_on:
       - postgres
     networks:
