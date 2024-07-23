@@ -16,4 +16,20 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_class = PostFilters
     ordering_fields = ["created_date"]
     pagination_class = CustomPagination
-    required_permission = 'PostListCreate'
+
+    # Define a dictionary to map methods to permissions
+    method_permissions = {
+        'create': 'CreatePost',
+        'update': 'UpdatePost',
+        'partial_update': 'PartialUpdatePost',
+        'destroy': 'DeletePost',
+        'list': 'ListPosts',
+        'retrieve': 'RetrievePost',
+    }
+
+    def get_permissions(self):
+        # Set the required permission based on the request method
+        self.required_permission = self.method_permissions.get(self.action, 'Post')
+
+        # Call the super method to handle other permissions
+        return super().get_permissions()

@@ -1,16 +1,17 @@
 from rest_framework import serializers
-from accounts.models import Profile ,User
+from accounts.models import Profile, User
 from blog.models import Post, Category
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
+        ref_name = "UserSerializer"
         model = User
         fields = ['id', 'phone_number']
 
 
 class AuthorSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True, help_text="UserSerializer")
 
     class Meta:
         model = Profile
@@ -25,13 +26,14 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
+        ref_name = "CategorySerializer"
         model = Category
         fields = ["id", "name"]
 
 
 class PostSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
+    category = CategorySerializer(read_only=True, help_text="UserSerializer")
 
     class Meta:
         model = Post
