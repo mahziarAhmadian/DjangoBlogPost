@@ -31,3 +31,11 @@ class CommentUpdateDestroySerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['content']
+
+
+class PeriodicDeleteSerializer(serializers.ModelSerializer):
+    date_time = serializers.DateTimeField(required=True)
+
+    class Meta:
+        model = Comment
+        fields = ['date_time']

@@ -19,7 +19,7 @@ services:
   backend:
     build: .
     container_name: backend
-    command:  python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     ports:
       - '8000:8000'
     environment:
@@ -33,6 +33,31 @@ services:
     networks:
       - BlogNetwork
     restart: always
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+  worker:
+    build: .
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - ./core:/app
+    depends_on:
+      - redis
+      - backend
+
+  beat:
+    build: .
+    command: celery -A core beat --loglevel=info
+    volumes:
+      - ./core:/app
+    depends_on:
+      - redis
+      - backend
+
 
 networks:
   BlogNetwork:
