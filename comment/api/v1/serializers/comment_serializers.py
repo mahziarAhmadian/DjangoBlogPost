@@ -34,8 +34,9 @@ class CommentUpdateDestroySerializer(serializers.ModelSerializer):
 
 
 class PeriodicDeleteSerializer(serializers.ModelSerializer):
+    task_name = serializers.CharField(max_length=200)
     date_time = serializers.DateTimeField(required=True)
 
     class Meta:
         model = Comment
-        fields = ['date_time']
+        fields = ['task_name', 'date_time']

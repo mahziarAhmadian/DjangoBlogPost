@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from blog.models.posts import Post
 from accounts.models.profile import Profile
+from datetime import datetime
 
 
 class Comment(models.Model):
@@ -14,6 +15,7 @@ class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     content = models.TextField()
     comment_level = models.IntegerField(null=True)
+    create_time = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
         return str(self.id)

@@ -19,9 +19,9 @@ services:
   backend:
     build: .
     container_name: backend
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:4545
     ports:
-      - '8000:8000'
+      - '4545:4545'
     environment:
       - DEBUG=True
       - SECRET_KEY=test
@@ -40,23 +40,29 @@ services:
     ports:
       - "6379:6379"
     command: redis-server --save 60 1 --loglevel warning
+    networks:
+      - BlogNetwork
   worker:
     build: .
     command: celery -A core worker --loglevel=info
     volumes:
-      - ./core:/app
+      - ./:/app
     depends_on:
       - redis
       - backend
+    networks:
+      - BlogNetwork
 
   beat:
     build: .
     command: celery -A core beat --loglevel=info
     volumes:
-      - ./core:/app
+      - ./:/app
     depends_on:
       - redis
       - backend
+    networks:
+      - BlogNetwork
 
 
 networks:

@@ -1,5 +1,5 @@
 # general  modules
-django >3.2,<3.3
+django>3.2,<3.3
 python-decouple
 Pillow
 djangorestframework
@@ -22,11 +22,12 @@ django-cors-headers
 # refactoring and tests
 #black
 #flake8
-#pytest
-#pytest-django
+pytest
+pytest-django
 #Faker
 
 # background proccess and cache
 celery
-redis
+# redis
 django-redis
+django-celery-beat

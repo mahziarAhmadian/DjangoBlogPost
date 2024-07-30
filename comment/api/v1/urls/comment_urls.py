@@ -9,7 +9,7 @@ urlpatterns = [
     path('replay/',
          comment_views.CommentReplayCreateAPIView.as_view(),
          name='replay-profile'),
-    path('periodic/', comment_views.PeriodicDeleteCreateAPIView.as_view(), name="periodic"),
+    path('periodic/delete/', comment_views.PeriodicDeleteCreateAPIView.as_view(), name="periodic"),
 
     path('<str:pk>/', comment_views.CommentViewSet.as_view(
         {'put': 'update', 'delete': 'destroy'}), name="comment-update-destroy"),
