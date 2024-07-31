@@ -19,9 +19,9 @@ services:
   backend:
     build: .
     container_name: backend
-    command: python manage.py runserver 0.0.0.0:4545
+    command: python manage.py runserver 0.0.0.0:6565
     ports:
-      - '4545:4545'
+      - '6565:6565'
     environment:
       - DEBUG=True
       - SECRET_KEY=test
