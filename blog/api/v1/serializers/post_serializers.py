@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = "UserSerializer"
         model = User
-        fields = ['id', 'phone_number']
+        fields = ["id", "phone_number"]
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -17,11 +17,11 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'id',
-            'user',
-            'first_name',
-            'last_name',
-            'description',
+            "id",
+            "user",
+            "first_name",
+            "last_name",
+            "description",
         ]
 
 
@@ -38,7 +38,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ['id', 'post', 'user_profile', 'content', 'comment_level', 'replies']
+        fields = ["id", "post", "user_profile", "content", "comment_level", "replies"]
 
     def get_replies(self, obj):
         descendants = obj.get_descendants()
@@ -69,9 +69,11 @@ class PostSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         request = self.context.get("request")
         rep = super().to_representation(instance)
-        if request.method == 'GET' or request.parser_context.get("kwargs").get("pk"):
+        if request.method == "GET" or request.parser_context.get("kwargs").get("pk"):
             # check for post comments
-            post_comments = Comment.objects.filter(post__id=instance.id, comment_level=0)
+            post_comments = Comment.objects.filter(
+                post__id=instance.id, comment_level=0
+            )
             rep["comments"] = CommentSerializer(post_comments, many=True).data
             # get post category information
             if instance.category is not None:

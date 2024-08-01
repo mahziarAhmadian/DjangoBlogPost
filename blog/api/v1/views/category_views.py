@@ -16,5 +16,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filterset_class = CategoryFilters
     ordering_fields = ["name"]
     pagination_class = CustomPagination
-    required_permission = 'CategoryListCreate'
-
+    required_permission = "CategoryListCreate"

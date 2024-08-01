@@ -9,10 +9,13 @@ class Comment(models.Model):
     """
     this is a class to define categories for blog table
     """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    parent = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
+    )
     content = models.TextField()
     comment_level = models.IntegerField(null=True)
     create_time = models.DateTimeField(default=datetime.now, blank=True)

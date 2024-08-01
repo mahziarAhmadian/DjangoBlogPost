@@ -9,6 +9,7 @@ class Post(models.Model):
     """
     this is a class to define posts for blog app
     """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     author = models.ForeignKey("accounts.Profile", on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)

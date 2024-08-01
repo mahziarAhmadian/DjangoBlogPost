@@ -3,7 +3,10 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from accounts.models.profile import Profile
-from accounts.api.v1.serializers.profile_serialzers import ProfileSerializer, SetProfileSerializer
+from accounts.api.v1.serializers.profile_serialzers import (
+    ProfileSerializer,
+    SetProfileSerializer,
+)
 from ..paginations import CustomPagination
 from ..permission import CustomPermissions
 from ..filters import ProfileFilters
@@ -15,6 +18,7 @@ class ProfileRetrieveAPIView(generics.RetrieveAPIView):
     """
     Endpoint for user registration.
     """
+
     queryset = Profile.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfileSerializer
@@ -35,7 +39,7 @@ class ProfileAdminListAPIView(generics.ListAPIView):
     serializer_class = ProfileSerializer
     pagination_class = CustomPagination
     filter_backends = [DjangoFilterBackend]
-    required_permission = 'ProfileList'
+    required_permission = "ProfileList"
     filterset_class = ProfileFilters
 
 
@@ -49,12 +53,14 @@ class SetProfileUpdateAPIView(generics.UpdateAPIView):
         return Profile.objects.get(user_id=user)
 
     def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)  # Check if partial update
+        partial = kwargs.pop("partial", False)  # Check if partial update
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
 
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Profile updated successfully'}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "Profile updated successfully"}, status=status.HTTP_200_OK
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -6,8 +6,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied, NotFound
 from comment.models.comments import Comment
-from ..serializers.comment_serializers import CommentCreateSerializer, ReplayCreateSerializer, \
-    CommentUpdateDestroySerializer, PeriodicDeleteSerializer
+from ..serializers.comment_serializers import (
+    CommentCreateSerializer,
+    ReplayCreateSerializer,
+    CommentUpdateDestroySerializer,
+    PeriodicDeleteSerializer,
+)
 from comment.task_handler import Tasks
 
 
@@ -35,14 +39,14 @@ class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentUpdateDestroySerializer
 
     def get_object(self):
-        comment_id = self.kwargs.get('pk')
+        comment_id = self.kwargs.get("pk")
         try:
             comment = Comment.objects.get(id=comment_id)
         except Comment.DoesNotExist:
-            raise NotFound('Comment not found.')
+            raise NotFound("Comment not found.")
 
         if comment.user_profile.user != self.request.user:
-            raise PermissionDenied('You do not have permission to modify this comment.')
+            raise PermissionDenied("You do not have permission to modify this comment.")
         return comment
 
 
@@ -58,11 +62,13 @@ class PeriodicDeleteCreateAPIView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             data = serializer.validated_data
-            if 'date_time' in data and 'task_name' in data:
-                date_time = data['date_time']
-                task_name = data['task_name']
-                Tasks().crontab_schedule_delete_comments(name=task_name, day_of_month=date_time.day)
+            if "date_time" in data and "task_name" in data:
+                date_time = data["date_time"]
+                task_name = data["task_name"]
+                Tasks().crontab_schedule_delete_comments(
+                    name=task_name, day_of_month=date_time.day
+                )
 
-            return Response({'status': 'Task scheduled'}, status=status.HTTP_200_OK)
+            return Response({"status": "Task scheduled"}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

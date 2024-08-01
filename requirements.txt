@@ -20,7 +20,7 @@ django-cors-headers
 #django-mail-templated
 
 # refactoring and tests
-#black
+black
 #flake8
 pytest
 pytest-django

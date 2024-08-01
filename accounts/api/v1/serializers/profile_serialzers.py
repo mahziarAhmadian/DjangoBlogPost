@@ -6,7 +6,13 @@ from accounts.models.users import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['phone_number', 'is_superuser', 'is_staff', 'is_active', 'created_date']
+        fields = [
+            "phone_number",
+            "is_superuser",
+            "is_staff",
+            "is_active",
+            "created_date",
+        ]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -15,7 +21,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['id', 'first_name', 'last_name', 'image', 'description', 'created_date', 'user']
+        fields = [
+            "id",
+            "first_name",
+            "last_name",
+            "image",
+            "description",
+            "created_date",
+            "user",
+        ]
 
 
 class SetProfileSerializer(serializers.ModelSerializer):
@@ -25,4 +39,4 @@ class SetProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'description']
+        fields = ["first_name", "last_name", "description"]

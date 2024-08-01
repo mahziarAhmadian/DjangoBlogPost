@@ -13,4 +13,12 @@ class CelerySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PeriodicTask
-        fields = ['id', 'name', 'task', 'start_time', 'total_run_count', 'date_changed', 'description']
+        fields = [
+            "id",
+            "name",
+            "task",
+            "start_time",
+            "total_run_count",
+            "date_changed",
+            "description",
+        ]

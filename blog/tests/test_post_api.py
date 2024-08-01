@@ -13,17 +13,17 @@ def api_client():
 
 @pytest.fixture
 def common_user():
-    user = User.objects.create_superuser(
-        phone_number="09121111111", password="1234")
+    user = User.objects.create_superuser(phone_number="09121111111", password="1234")
     return user
 
 
 @pytest.fixture
 def super_admin():
     user_obj = User.objects.create_superuser(
-        phone_number="09125555555", password="1234")
+        phone_number="09125555555", password="1234"
+    )
     user_obj = User.objects.get(phone_number="09125555555")
-    user_obj.permissions = ['ListPosts', 'CreatePost']
+    user_obj.permissions = ["ListPosts", "CreatePost"]
     user_obj.save()
     return user_obj
 
@@ -61,7 +61,7 @@ class TestPostApi:
         assert response.status_code == 201
 
     def test_create_post_invalid_data_response_400_status(
-            self, api_client, super_admin
+        self, api_client, super_admin
     ):
         url = reverse("blogs:api-v1-blog:post-list")
         data = {"title": "test", "content": "description"}
