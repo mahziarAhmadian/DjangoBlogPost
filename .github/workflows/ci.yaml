@@ -24,7 +24,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       - name: Build and run services
-        run: docker-compose up -d --build
+        run: docker-compose -f docker-compose-dev.yml  up -d --build
 
       - name: Run Tests
         run: docker-compose exec -T backend pytest
