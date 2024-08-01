@@ -26,5 +26,5 @@ jobs:
       - name: Build and run services
         run: docker-compose -f docker-compose-git-action.yml  up --build -d
       - name: Run Tests
-        run: docker exec backend sh -c "pytest"
+        run: docker-compose exec -T backend pytest
 
