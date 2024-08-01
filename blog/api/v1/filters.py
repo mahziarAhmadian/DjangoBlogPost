@@ -10,7 +10,11 @@ class PostFilters(filters.FilterSet):
 
     class Meta:
         model = Post
-        fields = {"category": ["exact"], "author": ["exact"], "status": ["exact"]}
+        fields = {
+            "category": ["exact"],
+            "author": ["exact"],
+            "status": ["exact"],
+        }
 
 
 class CategoryFilters(filters.FilterSet):

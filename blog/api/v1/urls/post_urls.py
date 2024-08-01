@@ -1,6 +1,5 @@
-from django.urls import path, include
+from django.urls import path
 from ..views import post_views
-from rest_framework.routers import DefaultRouter
 
 app_name = "api-v1-blog"
 

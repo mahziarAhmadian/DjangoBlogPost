@@ -1,7 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from blog.models import Post, Category
+from blog.models import Post
 from ..paginations import CustomPagination
 from ..filters import PostFilters
 from ..permission import CustomPermissions
@@ -29,7 +29,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # Set the required permission based on the request method
-        self.required_permission = self.method_permissions.get(self.action, "Post")
+        self.required_permission = self.method_permissions.get(
+            self.action, "Post"
+        )
 
         # Call the super method to handle other permissions
         return super().get_permissions()

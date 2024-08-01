@@ -1,7 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from blog.models import Post, Category
+from blog.models import Category
 from ..paginations import CustomPagination
 from ..filters import CategoryFilters
 from ..permission import CustomPermissions

@@ -19,7 +19,9 @@ class ReplayCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         print("validated_data", validated_data)
-        parent_instance = Comment.objects.get(id=validated_data.get("parent_id"))
+        parent_instance = Comment.objects.get(
+            id=validated_data.get("parent_id")
+        )
         post = parent_instance.post
         user_profile = parent_instance.user_profile
         content = validated_data.get("content")

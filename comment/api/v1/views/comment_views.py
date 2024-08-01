@@ -1,5 +1,5 @@
 import logging
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -46,7 +46,9 @@ class CommentViewSet(viewsets.ModelViewSet):
             raise NotFound("Comment not found.")
 
         if comment.user_profile.user != self.request.user:
-            raise PermissionDenied("You do not have permission to modify this comment.")
+            raise PermissionDenied(
+                "You do not have permission to modify this comment."
+            )
         return comment
 
 
@@ -69,6 +71,10 @@ class PeriodicDeleteCreateAPIView(generics.CreateAPIView):
                     name=task_name, day_of_month=date_time.day
                 )
 
-            return Response({"status": "Task scheduled"}, status=status.HTTP_200_OK)
+            return Response(
+                {"status": "Task scheduled"}, status=status.HTTP_200_OK
+            )
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )

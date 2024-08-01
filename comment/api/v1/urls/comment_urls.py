@@ -1,10 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 from comment.api.v1.views import comment_views
 
 app_name = "api-v1-comment"
 urlpatterns = [
     path(
-        "create/", comment_views.CommentCreateAPIView.as_view(), name="create-comment"
+        "create/",
+        comment_views.CommentCreateAPIView.as_view(),
+        name="create-comment",
     ),
     path(
         "replay/",
@@ -18,7 +20,9 @@ urlpatterns = [
     ),
     path(
         "<str:pk>/",
-        comment_views.CommentViewSet.as_view({"put": "update", "delete": "destroy"}),
+        comment_views.CommentViewSet.as_view(
+            {"put": "update", "delete": "destroy"}
+        ),
         name="comment-update-destroy",
     ),
 ]

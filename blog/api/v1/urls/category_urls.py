@@ -1,13 +1,14 @@
-from django.urls import path, include
+from django.urls import path
 from ..views import category_views
-from rest_framework.routers import DefaultRouter
 
 app_name = "api-v1-blog-category"
 
 urlpatterns = [
     path(
         "",
-        category_views.CategoryViewSet.as_view({"get": "list", "post": "create"}),
+        category_views.CategoryViewSet.as_view(
+            {"get": "list", "post": "create"}
+        ),
         name="post-list",
     ),
     path(

@@ -38,7 +38,14 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ["id", "post", "user_profile", "content", "comment_level", "replies"]
+        fields = [
+            "id",
+            "post",
+            "user_profile",
+            "content",
+            "comment_level",
+            "replies",
+        ]
 
     def get_replies(self, obj):
         descendants = obj.get_descendants()
@@ -69,7 +76,9 @@ class PostSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         request = self.context.get("request")
         rep = super().to_representation(instance)
-        if request.method == "GET" or request.parser_context.get("kwargs").get("pk"):
+        if request.method == "GET" or request.parser_context.get(
+            "kwargs"
+        ).get("pk"):
             # check for post comments
             post_comments = Comment.objects.filter(
                 post__id=instance.id, comment_level=0

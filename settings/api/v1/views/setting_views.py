@@ -20,7 +20,9 @@ class CeleryViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         # Set the required permission based on the request method
-        self.required_permission = self.method_permissions.get(self.action, "Celery")
+        self.required_permission = self.method_permissions.get(
+            self.action, "Celery"
+        )
 
         # Call the super method to handle other permissions
         return super().get_permissions()

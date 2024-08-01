@@ -15,7 +15,9 @@ def api_client():
 
 @pytest.fixture
 def common_user():
-    user = User.objects.create_user(phone_number="09121111111", password="1234")
+    user = User.objects.create_user(
+        phone_number="09121111111", password="1234"
+    )
     return user
 
 
@@ -94,7 +96,8 @@ class TestPostApi:
         ).id
         update_data = {"content": "comment edited "}
         update_url = reverse(
-            "comments:api-v1-comment:comment-update-destroy", kwargs={"pk": comment_id}
+            "comments:api-v1-comment:comment-update-destroy",
+            kwargs={"pk": comment_id},
         )
         update_response = api_client.put(update_url, update_data)
         assert update_response.status_code == 200
@@ -122,7 +125,8 @@ class TestPostApi:
         ).id
 
         delete_url = reverse(
-            "comments:api-v1-comment:comment-update-destroy", kwargs={"pk": comment_id}
+            "comments:api-v1-comment:comment-update-destroy",
+            kwargs={"pk": comment_id},
         )
         delete_response = api_client.delete(delete_url)
         assert delete_response.status_code == 204

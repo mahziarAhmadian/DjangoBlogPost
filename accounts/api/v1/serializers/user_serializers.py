@@ -2,7 +2,6 @@ from django.conf import settings
 from rest_framework import serializers
 from accounts.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.postgres.fields import ArrayField
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -65,7 +64,13 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = User
-        fields = ["phone_number", "password", "access", "refresh", "permissions"]
+        fields = [
+            "phone_number",
+            "password",
+            "access",
+            "refresh",
+            "permissions",
+        ]
 
     def get_tokens_for_user(self, user):
         refresh = RefreshToken.for_user(user)

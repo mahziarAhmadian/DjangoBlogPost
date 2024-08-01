@@ -4,7 +4,8 @@ from ...models import Profile
 
 class ProfileFilters(filters.FilterSet):
     """
-    valid filter fields arg : exact,iexact,contains,icontains,in,gt,gte,lt,lte,startswith,istartswith,endswith
+    valid filter fields arg : exact,iexact,contains,icontains,in,gt,gte,lt,lte,
+    startswith,istartswith,endswith
 
     """
 

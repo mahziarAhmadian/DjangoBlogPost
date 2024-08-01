@@ -21,7 +21,8 @@ django-cors-headers
 
 # refactoring and tests
 black
-#flake8
+flake8
+
 pytest
 pytest-django
 #Faker

@@ -21,7 +21,9 @@ class CustomPagination(PageNumberPagination):
                 "page": int(
                     self.request.GET.get("page", DEFAULT_PAGE)
                 ),  # can not set default = self.page
-                "page_size": int(self.request.GET.get("page_size", self.page_size)),
+                "page_size": int(
+                    self.request.GET.get("page_size", self.page_size)
+                ),
                 "results": data,
             }
         )

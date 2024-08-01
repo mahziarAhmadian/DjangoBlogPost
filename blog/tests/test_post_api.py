@@ -13,7 +13,9 @@ def api_client():
 
 @pytest.fixture
 def common_user():
-    user = User.objects.create_superuser(phone_number="09121111111", password="1234")
+    user = User.objects.create_superuser(
+        phone_number="09121111111", password="1234"
+    )
     return user
 
 
@@ -31,7 +33,6 @@ def super_admin():
 @pytest.mark.django_db
 class TestPostApi:
     def test_get_post_response_200_status(self, api_client, super_admin):
-        user = common_user
         api_client.force_authenticate(user=super_admin)
         url = reverse("blogs:api-v1-blog:post-list")
         response = api_client.get(url)

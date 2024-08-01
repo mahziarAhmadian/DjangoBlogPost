@@ -1,10 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 from settings.api.v1.views import setting_views
 
 app_name = "api-v1-comment"
 urlpatterns = [
     path(
-        "celery/", setting_views.CeleryViewSet.as_view({"get": "list"}), name="celery"
+        "celery/",
+        setting_views.CeleryViewSet.as_view({"get": "list"}),
+        name="celery",
     ),
     path(
         "celery/<int:pk>",

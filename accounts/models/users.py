@@ -47,7 +47,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     Custom User MMOdel for our app
     """
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     phone_number = models.CharField(max_length=255, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

@@ -6,8 +6,8 @@ class CustomPermissions:
         if required_permission:
             # Check if the user has the required permission
             return (
-                request.user.is_superuser
-                and required_permission in request.user.permissions
+                request.user.is_superuser and
+                required_permission in request.user.permissions
             )
         return True
 
@@ -18,7 +18,7 @@ class CustomPermissions:
         if required_permission:
             # Check if the user has the required permission
             return (
-                request.user.is_superuser
-                and required_permission in request.user.permissions
+                request.user.is_superuser and
+                required_permission in request.user.permissions
             )
         return True

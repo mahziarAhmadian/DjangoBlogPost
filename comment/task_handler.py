@@ -1,6 +1,5 @@
 from django_celery_beat.models import CrontabSchedule, PeriodicTask
 from datetime import datetime
-import json
 
 
 class Tasks:

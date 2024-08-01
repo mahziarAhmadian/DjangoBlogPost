@@ -77,7 +77,9 @@ class AdminSetPermissionsUpdateAPIView(generics.UpdateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = self.get_object()
-            user.permissions.append(serializer.validated_data["permission_name"])
+            user.permissions.append(
+                serializer.validated_data["permission_name"]
+            )
             user.save()
             return Response(
                 {"message": "User Permission updated successfully"},
