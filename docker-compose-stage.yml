@@ -10,6 +10,10 @@ services:
       - 5432
     volumes:
       - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: Blog
     networks:
       - BlogNetwork
     restart: unless-stopped
