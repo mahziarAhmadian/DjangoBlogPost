@@ -14,14 +14,15 @@ djangorestframework-simplejwt
 django-cors-headers
 
 # deployment module
-#gunicorn
+gunicorn
 
 # email third party modules
 #django-mail-templated
 
 # refactoring and tests
-#black
-#flake8
+black
+flake8
+
 pytest
 pytest-django
 #Faker

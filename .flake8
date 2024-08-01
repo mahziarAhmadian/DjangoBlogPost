@@ -1,0 +1,15 @@
+[flake8]
+exclude =
+    .git,
+    .gitignore,
+    __pycache__,
+    docs/source/conf.py,
+    old,
+    build,
+    dist,
+    settings.py
+ignore =
+    F401,
+    E501,
+    W503,
+    W504

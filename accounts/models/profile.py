@@ -10,7 +10,10 @@ class Profile(models.Model):
     """
     Profile class for each user which is being created to hold the information
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
@@ -20,7 +23,7 @@ class Profile(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'Profile'
+        db_table = "Profile"
 
     def __str__(self):
         return self.user.phone_number
