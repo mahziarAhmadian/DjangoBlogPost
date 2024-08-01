@@ -23,13 +23,12 @@ services:
       context: .
       dockerfile: Dockerfiles/action/backend/Dockerfile
     container_name: backend
-    command: sh -c "python manage.py runserver 0.0.0.0:8000 &&
-                    python manage.py makemigrations &&
-                    python manage.py migrate"
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=True
       - SECRET_KEY=test
       - ALLOWED_HOSTS=*
+      - DATABASE_NAME=sqlite3
     volumes:
       - ./:/app
     depends_on:
