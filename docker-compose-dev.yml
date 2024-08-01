@@ -1,25 +1,24 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfiles/postgres/Dockerfile
     container_name: postgres
     shm_size: 512mb
     expose:
       - 5432
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: Blog
     networks:
       - BlogNetwork
     restart: unless-stopped
 
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfiles/dev/backend/Dockerfile
     container_name: backend
-    command: python manage.py runserver 0.0.0.0:6565
     ports:
       - '6565:6565'
     environment:
@@ -35,15 +34,16 @@ services:
     restart: always
   redis:
     container_name: redis
-    image: redis
+    build:
+      context: .
+      dockerfile: Dockerfiles/dev/redis/Dockerfile
     restart: always
-    ports:
-      - "6379:6379"
-    command: redis-server --save 60 1 --loglevel warning
     networks:
       - BlogNetwork
   worker:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfiles/dev/backend/Dockerfile
     command: celery -A core worker --loglevel=info
     volumes:
       - ./:/app
@@ -54,7 +54,9 @@ services:
       - BlogNetwork
 
   beat:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfiles/dev/backend/Dockerfile
     command: celery -A core beat --loglevel=info
     volumes:
       - ./:/app
