@@ -23,9 +23,7 @@ services:
       context: .
       dockerfile: Dockerfiles/action/backend/Dockerfile
     container_name: backend
-    command: sh -c "python manage.py makemigrations &&
-      python manage.py migrate &&
-      python manage.py collectstatic"
+    command: python manage.py runserver 0.0.0.0:8000
     environment:
       - DEBUG=True
       - SECRET_KEY=test
