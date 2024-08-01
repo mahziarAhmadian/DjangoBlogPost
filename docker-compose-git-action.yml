@@ -14,8 +14,6 @@ services:
       - DATABASE_NAME=sqlite3
     volumes:
       - ./:/app
-    depends_on:
-      - postgres
     networks:
       - BlogNetwork
     restart: always
