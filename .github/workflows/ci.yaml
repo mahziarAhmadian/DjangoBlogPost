@@ -25,10 +25,6 @@ jobs:
 
       - name: Build and run services
         run: docker-compose -f docker-compose-git-action.yml  up --build -d
-      - name: Run migrations
-        run: docker exec backend sh -c "python manage.py makemigrations"
-      - name: Run migrate
-        run: docker exec backend sh -c "python manage.py migrate"
       - name: Run Tests
         run: docker exec backend sh -c "pytest"
 

@@ -1,14 +1,12 @@
-# Dockerfiles/backend/Dockerfile
+FROM python:3.8-slim-buster
 
-FROM python:3.9-slim
-
-# Set working directory
+ENV PYTHONDONTWRITEBYECODE = 1
+ENV PYTHONUNBUFFERED=1
+RUN mkdir "app"
 WORKDIR /app
 
-# Copy requirements.txt and install dependencies
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --upgrade pip
+RUN pip3 install -r requirements.txt
 
-# Copy the rest of the application code
 COPY . /app/
-
