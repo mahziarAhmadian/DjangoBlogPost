@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfiles/postgres/Dockerfile
+    container_name: postgres
+    shm_size: 512mb
+    expose:
+      - 5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: Blog
+    networks:
+      - BlogNetwork
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfiles/action/backend/Dockerfile
+    container_name: backend
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=test
+      - ALLOWED_HOSTS=*
+    volumes:
+      - ./:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    depends_on:
+      - postgres
+    networks:
+      - BlogNetwork
+    restart: always
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfiles/produ/nginx/Dockerfile
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/home/app/static
+      - media_volume:/home/app/media
+    depends_on:
+      - backend
+    networks:
+      - BlogNetwork
+volumes:
+  static_volume:
+  media_volume:
+
+networks:
+  BlogNetwork:
+    name: BlogNetwork
